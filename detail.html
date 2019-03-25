@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="cookie.js"></script>
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+            width: 180px;
+            height: 280px;
+            float: left;
+            padding: 10px;
+            border: 1px solid red
+        }
+        img{
+            width: 180px;
+            /* margin: 10px; */
+        }
+    </style>
+</head>
+<body>
+    <ul id="cartlist">
+
+    </ul>
+    <script>
+        var cartList = document.getElementById('cartlist');
+        var data =JSON.parse(localStorage.getItem('data'));
+        //console.log(data)
+        var id = location.search.split('=')[1];
+        
+        cartList.innerHTML += `<li><img src="${data[id].imgSrc}">
+                                    <p>${data[id].title}</p>
+                                    <p>${data[id].price}</p>
+                                    <input type="button" value = "添加购物车" class="addBtn" data-id = "${id}">
+                                    </li>`
+        var addBtns = document.getElementsByClassName('addBtn')
+        for(let i = 0;i<addBtns.length;i++){
+            addBtns[i].onclick = function () {
+                var id = this.getAttribute('data-id');
+                if(getCookie("cart")){
+                    var cartData = JSON.parse(getCookie("cart"))
+                }else{
+                    var cartData = {}
+                }
+
+                if(!cartData[id]){
+                    cartData[id] = 1
+                }else{
+                    cartData[id]++
+                }
+
+                cartData = JSON.stringify(cartData);
+                setCookie("cart",cartData);
+                location.href="cart.html"
+            }
+        }   
+    </script>
+</body>
+</html>

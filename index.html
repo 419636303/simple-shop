@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+            width: 180px;
+            height: 280px;
+            float: left;
+            padding: 10px;
+            border: 1px solid red
+        }
+        img{
+            width: 180px;
+            /* margin: 10px; */
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+
+    </ul>
+    <script>
+        var data = {
+            "10001":{
+                imgSrc:"img/1.jpg",
+                title:"全网通 三星S10+",
+                price:300
+            },
+            "10002":{
+                imgSrc:"img/2.jpg",
+                title:"全网通 华为mate20pro",
+                price:300
+            },
+            "10003":{
+                imgSrc:"img/3.jpg",
+                title:"全网通 IQOO",
+                price:299
+            } 
+        } 
+        var data = JSON.stringify(data)
+        localStorage.setItem('data',data)
+        var oList = document.getElementById('list');
+        var data = JSON.parse(localStorage.getItem("data"));
+        var str = ''
+        for(var i in data){
+            str += `<li><a href = "detail.html?id=${i}"><img src = "${data[i].imgSrc}">
+                        <p>${data[i].title}</p><p>￥${data[i].price}</p></li>`
+        }
+        oList.innerHTML = str;
+    </script>
+</body>
+</html>
